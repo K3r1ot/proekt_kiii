@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 // Connection string to MongoDB service in Kubernetes
-const mongoURI = "mongodb://mongo-service.default.svc.cluster.local:27017/schoolDB";
+const mongoURI = process.env.DB_URI || "mongodb://mongo-service.default.svc.cluster.local:27017/schoolDB";
 
 // Retry connection with MongoDB
 const connectWithRetry = () => {
