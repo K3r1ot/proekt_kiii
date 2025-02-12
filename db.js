@@ -1,30 +1,21 @@
-const sql = require("mssql");
-require("dotenv").config();
+// db.js
+const mongoose = require("mongoose");
 
-const config = {
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    server: process.env.DB_SERVER,
-    database: process.env.DB_DATABASE,
-    port: parseInt(process.env.DB_PORT, 10),
-    options: {
-        encrypt: false, // Set to true if using Azure MSSQL
-        trustServerCertificate: true,
-    },
-};
+const mongoURI = "mongodb://mongo:27017/schoolDB";  // Change localhost to mongo, which is the service name in docker-compose
+mongoose.connect(mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+}).then(() => {
+    console.log("Connected to MongoDB");
+}).catch(err => {
+    console.error("Failed to connect to MongoDB", err);
+});
+const subjectSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    created_at: { type: Date, default: Date.now }
+});
 
-const poolPromise = new sql.ConnectionPool(config)
-    .connect()
-    .then((pool) => {
-        console.log("Connected to MSSQL");
-        return pool;
-    })
-    .catch((err) => {
-        console.error("Database connection failed:", err);
-        process.exit(1);
-    });
+const Subject = mongoose.model("Subject", subjectSchema);
 
-module.exports = {
-    sql,
-    poolPromise,
-};
+module.exports = { Subject };

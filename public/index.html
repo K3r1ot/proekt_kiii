@@ -18,14 +18,16 @@
     </form>
 
     <ul>
-        <li ng-repeat="subject in subjects">
+        <li ng-repeat="subject in subjects track by subject._id">
             <strong>{{ subject.name }}</strong>: {{ subject.description }}
-            <button ng-click="editSubject(subject)">Измени</button>
-            <button ng-click="deleteSubject(subject.id)">Избриши</button>
+            <button ng-click="editSubject(subject)">Edit</button>
+            <button ng-click="deleteSubject(subject._id)">Delete</button>
+
         </li>
     </ul>
+    
 
-    <div ng-if="editing">
+    <div ng-if="editingSubject">
         <h2>Измени Предмет</h2>
         <input type="text" ng-model="editingSubject.name">
         <input type="text" ng-model="editingSubject.description">
