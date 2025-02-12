@@ -14,22 +14,21 @@ spec:
         app: mongo
     spec:
       containers:
-      - name: mongo
-        image: mongo:latest
-        ports:
-        - containerPort: 27017
-        volumeMounts:
-        - name: mongo-storage
-          mountPath: /data/db
+        - name: mongo
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          volumeMounts:
+            - name: mongo-storage
+              mountPath: /data/db
   volumeClaimTemplates:
-  - metadata:
-      name: mongo-storage
-    spec:
-      accessModes: ["ReadWriteOnce"]
-      resources:
-        requests:
-          storage: 1Gi
-
+    - metadata:
+        name: mongo-storage
+      spec:
+        accessModes: ["ReadWriteOnce"]
+        resources:
+          requests:
+            storage: 1Gi
 ---
 apiVersion: v1
 kind: Service
@@ -40,4 +39,4 @@ spec:
     - port: 27017
   selector:
     app: mongo
-  clusterIP: None  # Ensures that each pod gets a unique IP
+  clusterIP: None  # Ensures each pod gets a unique IP

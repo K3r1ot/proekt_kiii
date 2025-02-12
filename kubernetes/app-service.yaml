@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service
+spec:
+  selector:
+    app: app
+  ports:
+    - protocol: TCP
+      port: 80          # The port exposed by the service to the Ingress controller
+      targetPort: 3000  # The port where the app container is listening
+      nodePort: 30080   # Exposing service on this NodePort
+  type: NodePort       # Change this to NodePort
