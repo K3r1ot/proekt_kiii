@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: keriot/proekt_kontinuirana-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: DB_URI
+              value: "mongodb://mongo-service:27017/schoolDB"  # Point to the mongo service
