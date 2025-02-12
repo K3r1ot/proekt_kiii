@@ -1,35 +1,33 @@
-// db.js
 const mongoose = require("mongoose");
 
+// Connection string to MongoDB service in Kubernetes
 const mongoURI = "mongodb://mongo-service.default.svc.cluster.local:27017/schoolDB";
 
-// Change localhost to mongo, which is the service name in docker-compose
-mongoose.connect(mongoURI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-}).then(() => {
-    console.log("Connected to MongoDB");
-}).catch(err => {
-    console.error("Failed to connect to MongoDB", err);
-});
-const subjectSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    description: { type: String, required: true },
-    created_at: { type: Date, default: Date.now }
-});
+// Retry connection with MongoDB
 const connectWithRetry = () => {
     mongoose.connect(mongoURI, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     }).then(() => {
         console.log("Connected to MongoDB");
-    }).catch(err => {
+    }).catch((err) => {
         console.error("Failed to connect to MongoDB, retrying...", err);
-        setTimeout(connectWithRetry, 5000); // Retry connection after 5 seconds
+        // Retry after 5 seconds
+        setTimeout(connectWithRetry, 5000);
     });
 };
 
+// Start the connection retry
 connectWithRetry();
+
+// Define your schema
+const subjectSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    description: { type: String, required: true },
+    created_at: { type: Date, default: Date.now }
+});
+
+// Export the model
 const Subject = mongoose.model("Subject", subjectSchema);
 
 module.exports = { Subject };

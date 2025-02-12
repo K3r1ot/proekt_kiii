@@ -39,4 +39,4 @@ spec:
     - port: 27017
   selector:
     app: mongo
-  clusterIP: None  # Ensures each pod gets a unique IP
+  clusterIP: None  
