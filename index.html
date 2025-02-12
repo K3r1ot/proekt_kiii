@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proekt po KIII</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="app.js"></script>
+</head>
+<body ng-app="SubjectsApp" ng-controller="SubjectsController">
+
+    <h1>Предмети</h1>
+
+    <form ng-submit="addSubject()">
+        <input type="text" ng-model="newSubject.name" placeholder="Subject Name" required>
+        <input type="text" ng-model="newSubject.description" placeholder="Description" required>
+        <button type="submit">Додади Предмет</button>
+    </form>
+
+    <ul>
+        <li ng-repeat="subject in subjects">
+            <strong>{{ subject.name }}</strong>: {{ subject.description }}
+            <button ng-click="editSubject(subject)">Измени</button>
+            <button ng-click="deleteSubject(subject.id)">Избриши</button>
+        </li>
+    </ul>
+
+    <div ng-if="editing">
+        <h2>Измени Предмет</h2>
+        <input type="text" ng-model="editingSubject.name">
+        <input type="text" ng-model="editingSubject.description">
+        <button ng-click="updateSubject()">Зачувај</button>
+        <button ng-click="cancelEdit()">Откажи</button>
+    </div>
+
+</body>
+</html>
