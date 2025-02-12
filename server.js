@@ -9,7 +9,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Get all subjects
+
 app.get("/api/subjects", async (req, res) => {
     try {
         const pool = await poolPromise;
@@ -20,7 +20,7 @@ app.get("/api/subjects", async (req, res) => {
     }
 });
 
-// Get a single subject
+
 app.get("/api/subjects/:id", async (req, res) => {
     try {
         const pool = await poolPromise;
@@ -34,7 +34,7 @@ app.get("/api/subjects/:id", async (req, res) => {
     }
 });
 
-// Create a new subject
+
 app.post("/api/subjects", async (req, res) => {
     const { name, description } = req.body;
     try {
@@ -52,7 +52,7 @@ app.post("/api/subjects", async (req, res) => {
     }
 });
 
-// Update a subject
+
 app.put("/api/subjects/:id", async (req, res) => {
     const { name, description } = req.body;
     try {
@@ -71,7 +71,7 @@ app.put("/api/subjects/:id", async (req, res) => {
     }
 });
 
-// Delete a subject
+
 app.delete("/api/subjects/:id", async (req, res) => {
     try {
         const pool = await poolPromise;
