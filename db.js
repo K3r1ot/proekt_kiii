@@ -2,6 +2,7 @@
 const mongoose = require("mongoose");
 
 const mongoURI = "mongodb://mongo-service.default.svc.cluster.local:27017/schoolDB";
+
 // Change localhost to mongo, which is the service name in docker-compose
 mongoose.connect(mongoURI, {
     useNewUrlParser: true,
