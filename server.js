@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 
 app.get("/api/subjects", async (req, res) => {
     try {
-        const subjects = await Subject.find(); // Get all subjects
+        const subjects = await Subject.find();
         res.json(subjects);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -20,7 +20,7 @@ app.get("/api/subjects", async (req, res) => {
 
 app.get("/api/subjects/:id", async (req, res) => {
     try {
-        const subject = await Subject.findById(req.params.id); // Find a subject by ID
+        const subject = await Subject.findById(req.params.id);
         if (!subject) {
             return res.status(404).json({ message: "Subject not found" });
         }
@@ -35,7 +35,7 @@ app.post("/api/subjects", async (req, res) => {
     try {
         const newSubject = new Subject({ name, description });
         await newSubject.save();
-        res.status(201).json(newSubject); // Send back the created subject
+        res.status(201).json(newSubject);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
@@ -47,12 +47,12 @@ app.put("/api/subjects/:id", async (req, res) => {
         const updatedSubject = await Subject.findByIdAndUpdate(
             req.params.id,
             { name, description },
-            { new: true } // Return the updated document
+            { new: true }
         );
         if (!updatedSubject) {
             return res.status(404).json({ message: "Subject not found" });
         }
-        res.json(updatedSubject); // Send back the updated subject
+        res.json(updatedSubject);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

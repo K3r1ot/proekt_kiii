@@ -3,18 +3,18 @@ name: CI Pipeline for Dockerized App
 on:
   push:
     branches:
-      - main  # Trigger the workflow on pushes to the main branch
+      - main 
   pull_request:
     branches:
-      - main  # Trigger the workflow on pull requests to the main branch
+      - main  
 
 jobs:
   build:
-    runs-on: ubuntu-latest  # This will run on an Ubuntu machine hosted by GitHub Actions
+    runs-on: ubuntu-latest  
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2  # Checkout the latest code
+        uses: actions/checkout@v2  
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v1
