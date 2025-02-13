@@ -3,8 +3,8 @@ kind: StatefulSet
 metadata:
   name: mongo
 spec:
-  serviceName: "mongo"
-  replicas: 1
+  serviceName: "mongo-service" 
+  replicas: 3
   selector:
     matchLabels:
       app: mongo
@@ -21,6 +21,7 @@ spec:
           volumeMounts:
             - name: mongo-storage
               mountPath: /data/db
+          command: ["mongod", "--replSet", "rs0", "--bind_ip_all"]
   volumeClaimTemplates:
     - metadata:
         name: mongo-storage
@@ -39,4 +40,4 @@ spec:
     - port: 27017
   selector:
     app: mongo
-  clusterIP: None  
+  clusterIP: None
