@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 
 
-const mongoURI = process.env.DB_URI || "mongodb://mongo-service.default.svc.cluster.local:27017/schoolDB";
+const mongoURI = process.env.DB_URI || "mongodb://mongo-0.mongo-service.default.svc.cluster.local:27017,mongo-1.mongo-service.default.svc.cluster.local:27017,mongo-2.mongo-service.default.svc.cluster.local:27017/schoolDB?replicaSet=rs0";
+
 console.log(process.env.DB_URI)
 
 const connectWithRetry = () => {
@@ -26,7 +27,7 @@ const subjectSchema = new mongoose.Schema({
     created_at: { type: Date, default: Date.now }
 });
 
-// Export the model
+
 const Subject = mongoose.model("Subject", subjectSchema);
 
 module.exports = { Subject };
